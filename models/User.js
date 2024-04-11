@@ -29,7 +29,7 @@ class User extends Model {
       },
       {
         sequelize,
-        modelName: "user",
+        modelName: "User",
       }
     );
     return User;
