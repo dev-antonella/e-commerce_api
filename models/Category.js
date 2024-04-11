@@ -16,7 +16,7 @@ class Category extends Model {
       },
       {
         sequelize,
-        modelName: "Category",
+        modelName: "category",
       }
     );
     return Category;

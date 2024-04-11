@@ -27,18 +27,13 @@ class Product extends Model {
         stock: {
           type: DataTypes.NUMBER,
         },
-        category: {
-          type: DataTypes.STRING,
-          allowNull: false,
-        },
         featured: {
           type: DataTypes.BOOLEAN,
-          allowNull: false,
         },
       },
       {
         sequelize,
-        modelName: "Product",
+        modelName: "product",
       }
     );
     return Product;

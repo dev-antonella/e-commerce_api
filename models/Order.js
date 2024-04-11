@@ -9,10 +9,6 @@ class Order extends Model {
           primaryKey: true,
           autoIncrement: true,
         },
-        user: {
-          type: DataTypes.STRING,
-          allowNull: false,
-        },
         itemsList: {
           type: DataTypes.STRING,
           allowNull: false,
@@ -24,7 +20,7 @@ class Order extends Model {
       },
       {
         sequelize,
-        modelName: "Order",
+        modelName: "order",
       }
     );
     return Order;
