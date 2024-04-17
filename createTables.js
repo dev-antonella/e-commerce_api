@@ -7,4 +7,4 @@ async function createTables() {
   process.exit();
 }
 
-createTables();
+createTables();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
