@@ -7,3 +7,4 @@ const adminSeeder = require("./adminSeeders");
 adminSeeder()
 userSeeder()
 console.log("The seeders ran!")
+

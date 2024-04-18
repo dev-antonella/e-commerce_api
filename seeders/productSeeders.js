@@ -4,7 +4,7 @@ const { product } = require("../models");
 
 async function productSeeder() {
   for (let i = 0; i < 20; i++) {
-    const firstname = faker.commerce.produtname();
+    const firstname = faker.commerce.productName();
     const description = faker.commerce.productDescription();
     const price = faker.commerce.price;
     const newproduct = {

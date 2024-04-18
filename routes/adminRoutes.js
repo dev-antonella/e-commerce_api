@@ -1,13 +1,12 @@
 const express = require("express");
-const routes = express.Router();
+const app = express();
 const { Admin } = require("../models");
 const adminController = require("../controllers/adminController");
-const router = require(".");
 
-router.get("/", adminController.index);
-router.get("/:id", adminController.show);
-router.post("/", adminController.store);
-router.patch("/:id", adminController.update);
-router.delete("/:id", adminController.destroy);
+app.get("/", adminController.index);
+app.get("/:id", adminController.show);
+app.post("/", adminController.store);
+app.patch("/:id", adminController.update);
+app.delete("/:id", adminController.destroy);
 
-module.exports = router;
+module.exports = app;

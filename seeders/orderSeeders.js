@@ -9,8 +9,8 @@ const neworder ={
     name,
     description,
 };
-await order.create(neworder);
-    }
+}
+await order.bulkCreate(neworder);
     console.log("The order seeders ran!")
 }
 

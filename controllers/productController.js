@@ -31,30 +31,18 @@ const productController = {
     }
   },
 
-//   store: async (req, res) => {
-//     try {
-//       const product = req.body;
-
-//       // Validate products
-//       for (const productInfo of product.products) {
-//         const productInDB = await Product.findById(productInfo.id);
-//         if (!productInDB || productInDB.stock < productInfo.qty) {
-//           return res.json({ message: "Oops, something went wrong." });
-//         }
-
-//         // Update stock
-//         productInDB.stock -= productInfo.qty;
-//         await productInDB.save();
-//       }
-
-//       // Create the order and provide a response
-//       const createdOrder = await Order.create(order);
-//       return res.json({ message: "Order placed successfully." });
-//     } catch (err) {
-//       console.error(err);
-//       return res.json({ message: "Oops, something went wrong." });
-//     }
-//   },
+  store: async (req, res) => {
+    try {
+      const { name, description, pics, price, stock, featured } = req.body;
+      await Product.create({ name, description, pics, price, stock, featured });
+      return res.send("Product created successfully!");
+    } catch (error) {
+      console.error("Error creating user:", error);
+      return res
+        .status(500)
+        .json({ message: "Internal server error while creating user" });
+    }
+  },
 
   update: async (req, res) => {
     try {

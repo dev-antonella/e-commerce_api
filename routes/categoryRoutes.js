@@ -1,13 +1,13 @@
-const express = require("express");
-const routes = express.Router();
-const { Category } = require("../models");
-const categoryController = require("../controllers/categoryController");
-const router = require(".");
+// const express = require("express");
+// const app = express();
+// const { Category } = require("../models");
+// const categoryController = require("../controllers/categoryController");
+//
 
-router.get("/", categoryController.index);
-router.get("/:id", categoryController.show);
-router.post("/", categoryController.store);
-router.patch("/:id", categoryController.update);
-router.delete("/:id", categoryController.destroy);
+// app.get("/", categoryController.index);
+// app.get("/:id", categoryController.show);
+// app.post("/", categoryController.store);
+// app.patch("/:id", categoryController.update);
+// app.delete("/:id", categoryController.destroy);
 
-module.exports = router;
+// module.exports = app;

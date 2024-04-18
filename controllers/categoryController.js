@@ -1,6 +1,6 @@
 const { Category } = require("../models");
 
-//GET
+// GET
 const categoryController = {
   index: async (req, res) => {
     try {
@@ -13,9 +13,8 @@ const categoryController = {
         .json({ message: "Internal server error while fetching category" });
     }
   },
-}
 
-  //GET BY ID
+  // GET BY ID
   show: async (req, res) => {
     try {
       const { id } = req.params;
@@ -34,7 +33,7 @@ const categoryController = {
     }
   },
 
-  //POST
+  // POST
   store: async (req, res) => {
     try {
       const { nameCategory } = req.body;
@@ -48,7 +47,7 @@ const categoryController = {
     }
   },
 
-  //PATCH
+  // PATCH
   update: async (req, res) => {
     try {
       const { id } = req.params;
@@ -60,8 +59,8 @@ const categoryController = {
         return res.status(404).json({ message: "Category not found" });
       }
 
-      if (id) category.id = firstname;
-      if (name) category.name = firstname;
+      if (id) category.id = name; // Corrected variable name
+      if (name) category.name = name; // Corrected variable name
 
       await category.save();
 
@@ -72,10 +71,9 @@ const categoryController = {
         .status(500)
         .json({ message: "Internal server error while updating category" });
     }
-},
+  },
 
-
-  //DELETE
+  // DELETE
   destroy: async (req, res) => {
     try {
       const { id } = req.params;
@@ -87,14 +85,14 @@ const categoryController = {
 
       await category.destroy();
 
-      return res.status(200).json({ message: "Category deleted successfully" });
+      return res.send("Category deleted successfully!");
     } catch (error) {
       console.error("Error deleting category:", error);
       return res
         .status(500)
         .json({ message: "Internal server error while deleting category" });
     }
-},
-  }; 
+  },
+};
 
-  module.export = categoryController
+module.exports = categoryController;

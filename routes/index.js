@@ -1,7 +1,7 @@
 const { expressjwt: checkJwt } = require("express-jwt");
 const express = require("express");
 const userRoutes = require("./userRoutes");
-const categoryRoutes = require("./categoryRoutes");
+//const categoryRoutes = require("./categoryRoutes");
 const productRoutes = require("./productRoutes");
 const orderRoutes = require("./orderRoutes");
 const adminRoutes = require("./adminRoutes");
@@ -16,7 +16,7 @@ router.use(
   adminRoutes
 );
 
-router.use("/category", categoryRoutes);
+//router.use("/category", categoryRoutes);
 router.use("/order", orderRoutes);
 router.use("/product", productRoutes);
 router.use("/tokens", authRoutes);
