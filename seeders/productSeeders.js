@@ -1,24 +1,28 @@
 const { faker } = require("@faker-js/faker");
-const { product } = require("../models");
-
+const { Product } = require("../models");
 
 async function productSeeder() {
+  const products = [];
   for (let i = 0; i < 20; i++) {
-    const firstname = faker.commerce.productName();
+    const name = faker.commerce.productName();
     const description = faker.commerce.productDescription();
-    const price = faker.commerce.price;
-    const newproduct = {
-      firstname,
-      lastname,
-      email: faker.internet.email({ firstName: firstname, lastName: lastname }),
-      phoneNumber: faker.phone.number(),
-      password: "1234",
+    const pics = faker.image.urlPicsumPhotos();
+    const price = faker.commerce.price();
+    const stock = faker.number.bigInt();
+    const featured = false;
+
+    const newProduct = {
+      name,
+      description,
+      pics,
+      price,
+      stock,
+      featured,
     };
-    await product.create(newproduct);
+    products.push(newProduct);
   }
-  console.log("The products seeders ran!")
+  await Product.bulkCreate(products);
+  console.log("The product seeder ran!");
 }
 
 module.exports = productSeeder;
-
-

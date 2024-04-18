@@ -2,6 +2,7 @@ const { faker } = require("@faker-js/faker");
 const { User } = require("../models");
 
 async function userSeeder() {
+  const users = [];
   for (let i = 0; i < 20; i++) {
     const firstname = faker.person.firstName();
     const lastname = faker.person.firstName();
@@ -12,9 +13,10 @@ async function userSeeder() {
       phoneNumber: faker.phone.number(),
       password: "1234",
     };
-    await User.create(newUser);
+    users.push(newUser);
   }
-  console.log("The users seeders ran!")
+  await User.bulkCreate(newUser);
+  console.log("The users seeder ran!");
 }
 
 module.exports = userSeeder;

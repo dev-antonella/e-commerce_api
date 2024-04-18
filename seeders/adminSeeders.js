@@ -1,6 +1,7 @@
 const { faker } = require("@faker-js/faker");
 const { Admin } = require("../models");
 const admins = [];
+
 async function adminSeeder() {
   const newadmin = {
     firstname: "Chapo",
@@ -12,7 +13,7 @@ async function adminSeeder() {
 
   for (let i = 0; i < 3; i++) {
     const firstname = faker.person.firstName();
-    const lastname = faker.internet.userName();
+    const lastname = faker.person.lastName();
     const email = faker.internet.email();
     const password = faker.internet.password();
     const newadmin = {
