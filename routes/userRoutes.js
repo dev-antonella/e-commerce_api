@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const { User } = require("../models");
 const userController = require("../controllers/userController");
 
 app.get("/", userController.index);

@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const { Category } = require("../models");
 const categoryController = require("../controllers/categoryController");
 
 app.get("/", categoryController.index);

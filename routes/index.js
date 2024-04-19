@@ -12,7 +12,7 @@ router.use(express.json());
 
 router.use(
   "/admins",
-  checkJwt({ secret: "OneStringVerySecret", algorithms: ["HS256"] }),
+  checkJwt({ secret: "OneStringVerySecret", algorithms: ["HS256"] }), isAdmin,
   adminRoutes
 );
 
