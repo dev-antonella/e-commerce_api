@@ -3,28 +3,29 @@ const { Admin } = require("../models");
 const admins = [];
 
 async function adminSeeder() {
-  const newadmin = {
+  const adminRoot = {
     firstname: "Chapo",
     lastname: "Guzman",
     email: faker.internet.email({ firstName: firstname, lastname: lastname }),
     password: "1234",
   };
-  admins.push(newadmin);
+  admins.push(adminRoot);
 
   for (let i = 0; i < 3; i++) {
     const firstname = faker.person.firstName();
     const lastname = faker.person.lastName();
-    const email = faker.internet.email();
+    const email = faker.internet.email({
+      firstName: firstname,
+      lastname: lastname,
+    });
     const password = faker.internet.password();
     const newadmin = {
       firstname,
       lastname,
-      email: faker.internet.email({
-        firstName: firstname,
-        lastname: lastname,
-        password: "1234",
-      }),
+      email,
+      password,
     };
+    admins.push(newadmin);
   }
   await Admin.bulkCreate(admins);
 

@@ -1,12 +1,12 @@
 require("dotenv").config(); //para que corran las variables
-const userSeeder = require("./userSeeder");
+const userSedeer = require("./userSedeers");
 const adminSeeder = require("./adminSeeders");
-const categorySeeder = require("./categorySeeder");
+const categorySeeder = require("./categorySeeders");
 const orderSeeder = require("./orderSeeders");
 const productSeeder = require("./productSeeders");
 
 adminSeeder();
-userSeeder();
+userSedeer();
 categorySeeder();
 orderSeeder();
 productSeeder();

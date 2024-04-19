@@ -1,7 +1,7 @@
 const { faker } = require("@faker-js/faker");
 const { User } = require("../models");
 
-async function userSeeder() {
+async function userSedeer() {
   const users = [];
   for (let i = 0; i < 20; i++) {
     const firstname = faker.person.firstName();
@@ -19,4 +19,4 @@ async function userSeeder() {
   console.log("The users seeder ran!");
 }
 
-module.exports = userSeeder;
+module.exports = userSedeer;
