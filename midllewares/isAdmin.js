@@ -1,5 +1,5 @@
 const isAdmin = async (req, res, next) =>{ {
- { if(user )
+ { if(req.auth.roll = String(user))
       return res
         .status(403)
         .json({ message: "You must have admin permissions." });
@@ -9,5 +9,6 @@ const isAdmin = async (req, res, next) =>{ {
 }
   }
 };
+
 
 
