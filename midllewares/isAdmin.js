@@ -1,6 +1,6 @@
-const isAdmin = async (req, res, next) => {
+async function isAdmin(req, res, next) {
   try {
-    const userRole = req.auth.roll;
+    const userRole = req.auth.role;
 
     if (userRole === "admin") {
       return res
@@ -13,4 +13,4 @@ const isAdmin = async (req, res, next) => {
     console.error("Error in isAdmin middleware:", error);
     return res.status(500).json({ message: "Error interno del servidor." });
   }
-};
+}

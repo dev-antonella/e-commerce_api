@@ -3,11 +3,12 @@ const { Admin } = require("../models");
 const admins = [];
 
 async function adminSeeder() {
+  const hashedPassword = await bcrypt.hash("1234", 10);
   const adminRoot = {
     firstname: "Chapo",
     lastname: "Guzman",
     email: faker.internet.email({ firstName: firstname, lastname: lastname }),
-    password: "1234",
+    password: hashedPassword,
   };
   admins.push(adminRoot);
 

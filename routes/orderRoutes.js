@@ -1,11 +1,12 @@
 const express = require("express");
-const app = express();
+const router = express.Router();
 const orderController = require("../controllers/orderController");
+const isAdmin = require("../midllewares/isAdmin");
 
-app.get("/", orderController.index);
-app.get("/:id", orderController.show);
-app.post("/", orderController.store);
-app.patch("/:id", orderController.update);
-app.delete("/:id", orderController.destroy);
+router.get("/", orderController.index);
+router.get("/:id", orderController.show);
+router.post("/", orderController.store);
+router.patch("/:id", orderController.update);
+router.delete("/:id", orderController.destroy);
 
-module.exports = app;
+module.exports = router;

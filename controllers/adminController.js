@@ -31,8 +31,8 @@ const adminController = {
   },
   store: async (req, res) => {
     try {
-      const { firstname, lastname, email, password } = req.body;
-      await admin.create({ firstname, lastname, email, password });
+      const hashedPassword = await bcrypt.hash(password, 10);
+      await User.create({ firstname, lastname, email, hashedPassword });
       return res.send("Admin created successfully!");
     } catch (error) {
       console.error("Error creating admin:", error);
@@ -55,7 +55,8 @@ const adminController = {
       if (firstname) user.firstname = firstname;
       if (lastname) user.lastname = lastname;
       if (email) user.email = email;
-      if (password) user.password = password;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      if (password) user.password = hashedPassword;
 
       await admin.save();
 

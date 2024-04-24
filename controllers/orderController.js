@@ -1,9 +1,9 @@
-const { Order } = require("../models");
+const { Order, Product, User } = require("../models");
 
 const orderController = {
   index: async (req, res) => {
     try {
-      const orders = await Order.findAll();
+      const orders = await Order.findAll({ include: User, Product });
       return res.json(orders);
     } catch (error) {
       console.error("Error fetching order:", error);
@@ -16,8 +16,8 @@ const orderController = {
   show: async (req, res) => {
     try {
       const { id } = req.params;
-      const order = await Order.findByPk(id);
-
+      const order = await Order.findByPk(id, { include: User, Product });
+      console.log(order);
       if (!order) {
         return res.status(404).json({ message: "Order not found" });
       }
@@ -35,19 +35,16 @@ const orderController = {
     try {
       const order = req.body;
 
-      // Validate orders
-      for (const productInfo of order.orders) {
+      for (const productInfo of order.itemsList) {
         const productInDB = await Order.findById(productInfo.id);
         if (!productInDB || productInDB.stock < productInfo.qty) {
           return res.json({ message: "Oops, something went wrong." });
         }
 
-        // Update stock
         productInDB.stock -= productInfo.qty;
         await productInDB.save();
       }
 
-      // Create the order and provide a response
       await Order.create(order);
       return res.json({ message: "Order placed successfully." });
     } catch (err) {

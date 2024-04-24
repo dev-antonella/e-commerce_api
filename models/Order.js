@@ -13,6 +13,10 @@ class Order extends Model {
           type: DataTypes.STRING,
           allowNull: false,
         },
+        address: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
         status: {
           type: DataTypes.STRING,
           allowNull: false,
@@ -26,7 +30,5 @@ class Order extends Model {
     return Order;
   }
 }
-
-
 
 module.exports = Order;

@@ -7,11 +7,13 @@ const authController = {
       const { email, password } = req.body;
 
       const user = await User.findOne({ where: { email } });
-
-      if (user || user.password !== password)
+      if (!(user && (await bcrypt.compare(unhashedPassword, hashedPassowrd))))
         return res.json({ message: "Invalid credentials" });
 
-      const token = jwt.sign({ sub: "user123" }, process.env.TOKEN_SECRET);
+      const token = jwt.sign(
+        { sub: user.id, role: "admin" },
+        process.env.TOKEN_SECRET
+      );
 
       return res.status("200").json({ token });
     } catch (err) {
