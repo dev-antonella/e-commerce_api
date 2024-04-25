@@ -1,4 +1,5 @@
 const { Admin } = require("../models");
+const bcrypt = require("bcryptjs");
 
 const adminController = {
   index: async (req, res) => {
@@ -32,7 +33,7 @@ const adminController = {
   store: async (req, res) => {
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
-      await User.create({ firstname, lastname, email, hashedPassword });
+      await Admin.create({ firstname, lastname, email, hashedPassword });
       return res.send("Admin created successfully!");
     } catch (error) {
       console.error("Error creating admin:", error);
