@@ -25,7 +25,7 @@ class Product extends Model {
                     type: DataTypes.INTEGER,
                 },
                 stock: {
-                    type: DataTypes.INTEGER,
+                    type: DataTypes.BIGINT,
                 },
                 featured: {
                     type: DataTypes.BOOLEAN,

@@ -31,7 +31,7 @@ Category.hasMany(Product);
 Product.belongsTo(Category);
 
 module.exports = {
-    Sequelize,
+    sequelize,
     User,
     Product,
     Order,
