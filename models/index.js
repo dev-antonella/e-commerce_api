@@ -5,6 +5,7 @@ const Product = require("./Product");
 const Order = require("./Order");
 const Admin = require("./Admin");
 const Category = require("./Category");
+const OrderProducts = require("./OrderProducts");
 
 const sequelize = new Sequelize(
     process.env.DB_DATABASE,
@@ -23,12 +24,16 @@ Product.initModel(sequelize);
 Order.initModel(sequelize);
 Admin.initModel(sequelize);
 Category.initModel(sequelize);
+OrderProducts.initModel(sequelize);
 
 User.hasMany(Order);
 Order.belongsTo(User);
 
 Category.hasMany(Product);
 Product.belongsTo(Category);
+
+Order.belongsToMany(Product, { through: OrderProducts },);
+Product.belongsToMany(Order, { through: OrderProducts });
 
 module.exports = {
     sequelize,
@@ -37,4 +42,5 @@ module.exports = {
     Order,
     Admin,
     Category,
+    OrderProducts,
 };

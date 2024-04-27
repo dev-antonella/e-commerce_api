@@ -1,6 +1,5 @@
 const { Category } = require("../models");
 
-// GET
 const categoryController = {
   index: async (req, res) => {
     try {
@@ -14,7 +13,6 @@ const categoryController = {
     }
   },
 
-  // GET BY ID
   show: async (req, res) => {
     try {
       const { id } = req.params;
@@ -33,11 +31,10 @@ const categoryController = {
     }
   },
 
-  // POST
   store: async (req, res) => {
     try {
-      const { nameCategory } = req.body;
-      await Category.create({ nameCategory });
+      const { name } = req.body;
+      await Category.create({ name });
       return res.send("Category created successfully!");
     } catch (error) {
       console.error("Error creating category:", error);
@@ -47,7 +44,6 @@ const categoryController = {
     }
   },
 
-  // PATCH
   update: async (req, res) => {
     try {
       const { id } = req.params;
@@ -59,8 +55,8 @@ const categoryController = {
         return res.status(404).json({ message: "Category not found" });
       }
 
-      if (id) category.id = name; // Corrected variable name
-      if (name) category.name = name; // Corrected variable name
+      if (id) category.id = name;
+      if (name) category.name = name;
 
       await category.save();
 
@@ -73,7 +69,6 @@ const categoryController = {
     }
   },
 
-  // DELETE
   destroy: async (req, res) => {
     try {
       const { id } = req.params;

@@ -33,8 +33,8 @@ const productController = {
 
   store: async (req, res) => {
     try {
-      const { name, description, pics, price, stock, featured } = req.body;
-      await Product.create({ name, description, pics, price, stock, featured });
+      const { name, description, picture, price, stock, featured, categoryId } = req.body;
+      await Product.create({ name, description, picture, price, stock, featured, categoryId });
       return res.send("Product created successfully!");
     } catch (error) {
       console.error("Error creating user:", error);
@@ -47,7 +47,7 @@ const productController = {
   update: async (req, res) => {
     try {
       const { id } = req.params;
-      const { name, description, pics, price, stock, featured } = req.body;
+      const { name, description, pics, price, stock, featured, categoryId } = req.body;
 
       const product = await Product.findByPk(id);
 
@@ -61,6 +61,7 @@ const productController = {
       if (price) product.price = price;
       if (stock) product.stock = stock;
       if (featured) product.featured = featured;
+      if (categoryId) product.categoryId = categoryId;
 
       await product.save();
 

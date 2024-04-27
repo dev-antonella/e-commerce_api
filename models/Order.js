@@ -9,10 +9,10 @@ class Order extends Model {
           primaryKey: true,
           autoIncrement: true,
         },
-        itemsList: {
-          type: DataTypes.STRING,
-          allowNull: false,
-        },
+        // itemsList: {
+        //   type: DataTypes.STRING,
+        //   allowNull: false,
+        // },
         address: {
           type: DataTypes.STRING,
           allowNull: false,

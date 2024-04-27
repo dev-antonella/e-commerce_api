@@ -3,7 +3,7 @@ const { Order, Product, User } = require("../models");
 const orderController = {
   index: async (req, res) => {
     try {
-      const orders = await Order.findAll({ include: User, Product });
+      const orders = await Order.findAll();
       return res.json(orders);
     } catch (error) {
       console.error("Error fetching order:", error);
@@ -16,7 +16,7 @@ const orderController = {
   show: async (req, res) => {
     try {
       const { id } = req.params;
-      const order = await Order.findByPk(id, { include: User, Product });
+      const order = await Order.findByPk(id);
       console.log(order);
       if (!order) {
         return res.status(404).json({ message: "Order not found" });
@@ -56,7 +56,7 @@ const orderController = {
   update: async (req, res) => {
     try {
       const { id } = req.params;
-      const { productsList, status } = req.body;
+      const { address, status } = req.body;
 
       const order = await Order.findByPk(id);
 
@@ -64,7 +64,8 @@ const orderController = {
         return res.status(404).json({ message: "Order not found" });
       }
 
-      if (productsList) order.name = productsList;
+      // if (productsList) order.name = productsList;
+      if (address) order.address = address;
       if (status) order.status = status;
 
       await order.save();

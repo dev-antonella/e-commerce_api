@@ -28,7 +28,7 @@ async function adminSeeder() {
             firstname,
             lastname,
             email,
-            password,
+            password: hashedPassword,
         };
         admins.push(newadmin);
     }

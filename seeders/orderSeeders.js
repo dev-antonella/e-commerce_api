@@ -4,11 +4,11 @@ const { Order } = require("../models");
 async function orderSeeder() {
     const orders = [];
     for (let i = 0; i < 19; i++) {
-        const itemsList = faker.commerce.product();
+        // const itemsList = faker.commerce.product();
         const address = faker.location.streetAddress();
         const status = "Pending";
         const newOrder = {
-            itemsList,
+            // itemsList,
             address,
             status,
             userId: i + 1,
