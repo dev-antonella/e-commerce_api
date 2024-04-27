@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { expressjwt: checkJwt } = require("express-jwt");
 const express = require("express");
 const userRoutes = require("./userRoutes");
@@ -12,16 +13,16 @@ const router = express.Router();
 router.use(express.json());
 
 router.use(
-  "/admins",
-  checkJwt({ secret: "oneStringVerySecret", algorithms: ["HS256"] }),
-  isAdmin,
-  adminRoutes
+    "/admins",
+    checkJwt({ secret: process.env.TOKEN_SECRET, algorithms: ["HS256"] }),
+    isAdmin,
+    adminRoutes
 );
 
 router.use(
-  "/orders",
-  checkJwt({ secret: "oneStringVerySecret", algorithms: ["HS256"] }),
-  orderRoutes
+    "/orders",
+    checkJwt({ secret: process.env.TOKEN_SECRET, algorithms: ["HS256"] }),
+    orderRoutes
 );
 router.use("/products", productRoutes);
 router.use("/tokens", authRoutes);

@@ -33,9 +33,20 @@ const userController = {
     store: async (req, res) => {
         try {
             const { firstname, lastname, email, password } = req.body;
-            const hashedPassword = await bcrypt.hash(password, 10);
-            await User.create({ firstname, lastname, email, hashedPassword });
-            return res.send("User created successfully!");
+            if (firstname && lastname && email && password) {
+                const hashedPassword = await bcrypt.hash(password, 10);
+                await User.create({
+                    firstname,
+                    lastname,
+                    email,
+                    password: hashedPassword,
+                });
+                return res.send("User created successfully!");
+            } else {
+                return res
+                    .status(400)
+                    .json({ message: "Atleast one value is empty" });
+            }
         } catch (error) {
             console.error("Error creating user:", error);
             return res
@@ -57,9 +68,11 @@ const userController = {
             if (firstname) user.firstname = firstname;
             if (lastname) user.lastname = lastname;
             if (email) user.email = email;
-            const hashedPassword = await bcrypt.hash(password, 10);
-            if (password) user.password = hashedPassword;
 
+            if (password) {
+                const hashedPassword = await bcrypt.hash(password, 10);
+                user.password = hashedPassword;
+            }
             await user.save();
 
             return res.send("User modified successfully!");
