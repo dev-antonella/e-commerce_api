@@ -5,9 +5,11 @@ const categoryController = {
     try {
       const category = await Category.findAll();
       return res.json(category);
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Internal server error while fetching category." });
+    } catch (error) {
+      console.error("Error fetching category:", error);
+      return res
+        .status(500)
+        .json({ message: "Internal server error while fetching category" });
     }
   },
 
@@ -17,27 +19,28 @@ const categoryController = {
       const category = await Category.findByPk(id);
 
       if (!category) {
-        return res.status(404).json({ message: "Category not found." });
+        return res.status(404).json({ message: "Category not found" });
       }
 
       return res.json(category);
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Internal server error while fetching category." });
+    } catch (error) {
+      console.error("Error fetching category:", error);
+      return res
+        .status(500)
+        .json({ message: "Internal server error while fetching category" });
     }
   },
 
   store: async (req, res) => {
     try {
       const { name } = req.body;
-      if (req.user.role !== "admin") {
-        return res.status(403).json({ message: "Access denied: only administrators can create categories." });
-    }
       await Category.create({ name });
       return res.send("Category created successfully!");
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Internal server error while creating category." });
+    } catch (error) {
+      console.error("Error creating category:", error);
+      return res
+        .status(500)
+        .json({ message: "Internal server error while creating category" });
     }
   },
 
@@ -49,12 +52,8 @@ const categoryController = {
       const category = await Category.findByPk(id);
 
       if (!category) {
-        return res.status(404).json({ message: "Category not found." });
+        return res.status(404).json({ message: "Category not found" });
       }
-
-      if (req.user.role !== "admin") {
-        return res.status(403).json({ message: "Access denied: only administrators can modify categories." });
-    }
 
       if (id) category.id = name;
       if (name) category.name = name;
@@ -62,9 +61,11 @@ const categoryController = {
       await category.save();
 
       return res.send("Category modified successfully!");
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Internal server error while updating category." });
+    } catch (error) {
+      console.error("Error updating category:", error);
+      return res
+        .status(500)
+        .json({ message: "Internal server error while updating category" });
     }
   },
 
@@ -74,19 +75,17 @@ const categoryController = {
       const category = await Category.findByPk(id);
 
       if (!category) {
-        return res.status(404).json({ message: "Category not found." });
+        return res.status(404).json({ message: "Category not found" });
       }
-
-      if (req.user.role !== "admin") {
-        return res.status(403).json({ message: "Access denied: only administrators can delete categories." });
-    }
 
       await category.destroy();
 
       return res.send("Category deleted successfully!");
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Internal server error while deleting category." });
+    } catch (error) {
+      console.error("Error deleting category:", error);
+      return res
+        .status(500)
+        .json({ message: "Internal server error while deleting category" });
     }
   },
 };

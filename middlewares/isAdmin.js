@@ -10,11 +10,11 @@ async function isAdmin(req, res, next) {
                 next();
             }
         } else {
-            return res.status(498).json({ message: "Empty or incorrect token." });
+            return res.status(498).json({ message: "Empty or wrong token" });
         }
-    } catch (err) {
-        console.error(err);
-        return res.status(500).json({ message: "Internal Server Error." });
+    } catch (error) {
+        console.error("Error in isAdmin middleware:", error);
+        return res.status(500).json({ message: "Error interno del servidor." });
     }
 }
 module.exports = isAdmin;
