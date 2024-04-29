@@ -1,4 +1,4 @@
-const { Order, Product, User } = require("../models");
+const { Order, Product, User, OrderProducts } = require("../models");
 
 const orderController = {
   index: async (req, res) => {
@@ -17,7 +17,6 @@ const orderController = {
     try {
       const { id } = req.params;
       const order = await Order.findByPk(id);
-      console.log(order);
       if (!order) {
         return res.status(404).json({ message: "Order not found" });
       }
@@ -33,19 +32,23 @@ const orderController = {
 
   store: async (req, res) => {
     try {
+      //const user Id = req.auth.id; No logre traer el userId del token, preguntar
       const order = req.body;
-
-      for (const productInfo of order.itemsList) {
-        const productInDB = await Order.findById(productInfo.id);
-        if (!productInDB || productInDB.stock < productInfo.qty) {
+      
+      const orderCreated = await Order.create(order);
+      // orderCreated.userId = userId;
+      // console.log(orderCreated);
+      // orderCreated.save();
+      
+      for (const product of order.itemsList) {
+        const productInDB = await Product.findByPk(product.id);
+        if (!productInDB || productInDB.stock < product.qty) {
           return res.json({ message: "Oops, something went wrong." });
         }
-
-        productInDB.stock -= productInfo.qty;
+        await OrderProducts.create({orderId:orderCreated.id,productId:product.id,quantity:product.quantity});
+        productInDB.stock -= product.quantity;
         await productInDB.save();
       }
-
-      await Order.create(order);
       return res.json({ message: "Order placed successfully." });
     } catch (err) {
       console.error(err);
