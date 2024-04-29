@@ -1,3 +1,31 @@
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+const { Order, Product, User } = require("../models");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
+const orderController = {
+    index: async (req, res) => {
+        try {
+            const orders = await Order.findAll();
+            return res.json(orders);
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({ message: "Internal server error while fetching orders." });
+        }
+    },
+
+    show: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const order = await Order.findByPk(id);
+
+            if (!order) {
+                return res.status(404).json({ message: "Order not found" });
+            }
+=======
+>>>>>>> Stashed changes
 const { Order, Product, User, OrderProducts } = require("../models");
 
 const orderController = {
@@ -55,51 +83,85 @@ const orderController = {
       return res.json({ message: "Oops, something went wrong." });
     }
   },
+>>>>>>> 710197bbbf0bc9b69b02a59206408bba563cf42a
 
-  update: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const { address, status } = req.body;
+            return res.json(order);
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({ message: "Internal server error while fetching order." });
+        }
+    },
 
-      const order = await Order.findByPk(id);
+    store: async (req, res) => {
+        try {
+            const order = req.body;
 
-      if (!order) {
-        return res.status(404).json({ message: "Order not found" });
-      }
+            for (const productInfo of order.itemsList) {
+                const productInDB = await Product.findById(productInfo.id);
+                if (!productInDB || productInDB.stock < productInfo.qty) {
+                    return res.json({ message: "Oops, something went wrong." });
+                }
 
-      // if (productsList) order.name = productsList;
-      if (address) order.address = address;
-      if (status) order.status = status;
+                productInDB.stock -= productInfo.qty;
+                await productInDB.save();
+            }
 
-      await order.save();
+            await Order.create(order);
+            return res.json({ message: "Order placed successfully." });
+        } catch (err) {
+            console.error(err);
+            return res.json({ message: "Oops, something went wrong." });
+        }
+    },
 
-      return res.send("Order modified successfully!");
-    } catch (error) {
-      console.error("Error updating order:", error);
-      return res
-        .status(500)
-        .json({ message: "Internal server error while updating order" });
-    }
-  },
-  destroy: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const order = await Order.findByPk(id);
+    update: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const { address, status } = req.body;
 
-      if (!order) {
-        return res.status(404).json({ message: "Order not found" });
-      }
+            const order = await Order.findByPk(id);
 
-      await order.destroy();
+            if (!order) {
+                return res.status(404).json({ message: "Order not found." });
+            }
 
-      return res.status(200).json({ message: "Order deleted successfully" });
-    } catch (error) {
-      console.error("Error deleting order:", error);
-      return res
-        .status(500)
-        .json({ message: "Internal server error while deleting order" });
-    }
-  },
+            if (req.user.role !== "admin") {
+                return res.status(403).json({ message: "Access denied: Only administrators can modify orders." });
+            }
+            
+            if (address) order.address = address;
+            if (status) order.status = status;
+            
+            await order.save();
+
+            return res.send("Order modified successfully!");
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({ message: "Internal server error while updating order." });
+        }
+    },
+
+    destroy: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const order = await Order.findByPk(id);
+
+            if (!order) {
+                return res.status(404).json({ message: "Order not found." });
+            }
+
+            if (req.user.role !== "admin") {
+                return res.status(403).json({ message: "Access denied: Only administrators can delete orders." });
+            }
+
+            await order.destroy();
+
+            return res.status(200).json({ message: "Order deleted successfully." });
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({ message: "Internal server error while deleting order." });
+        }
+    },
 };
 
 module.exports = orderController;

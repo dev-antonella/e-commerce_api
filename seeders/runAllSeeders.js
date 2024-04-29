@@ -13,8 +13,15 @@ async function runSeeders() {
     await adminSeeder();
     await categorySeeder();
     await productSeeder();
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    console.log("The seeders was ran!");
+=======
+>>>>>>> Stashed changes
     await orderSeeder();
     await orderProductsSeeder();
 
     console.log("The seeders ran");
+>>>>>>> 710197bbbf0bc9b69b02a59206408bba563cf42a
 }

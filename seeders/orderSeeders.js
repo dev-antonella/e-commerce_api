@@ -16,7 +16,7 @@ async function orderSeeder() {
         orders.push(newOrder);
     }
     await Order.bulkCreate(orders);
-    console.log("The order seeder ran!");
+    console.log("The orders seeder was ran!");
 }
 
 module.exports = orderSeeder;
