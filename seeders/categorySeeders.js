@@ -2,7 +2,7 @@ const { faker } = require("@faker-js/faker");
 const { Category } = require("../models");
 
 async function categorySeeder() {
-  const cateogries = [];
+  const cateogrie = [];
   for (let i = 0; i < 20; i++) {
     const name = "Category";
     const newcategory = {
@@ -10,9 +10,9 @@ async function categorySeeder() {
     };
     cateogrie.push(newcategory);
   }
-  await Category.bulkCreate(cateogries);
+  await Category.bulkCreate(cateogrie);
 
-  console.log("The category seeder was run!");
+  console.log("The category seeder ran!");
 }
 
 module.exports = categorySeeder;

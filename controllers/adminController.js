@@ -6,10 +6,10 @@ const adminController = {
         try {
             const admins = await Admin.findAll();
             return res.json(admins);
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error("Error fetching admins:", error);
             return res.status(500).json({
-                message: "Internal server error while fetching admins.",
+                message: "Internal server error while fetching admins",
             });
         }
     },
@@ -19,14 +19,14 @@ const adminController = {
             const admin = await Admin.findByPk(id);
 
             if (!admin) {
-                return res.status(404).json({ message: "Admin not found." });
+                return res.status(404).json({ message: "Admin not found" });
             }
 
             return res.json(admin);
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error("Error fetching admin:", error);
             return res.status(500).json({
-                message: "Internal server error while fetching admin.",
+                message: "Internal server error while fetching admin",
             });
         }
     },
@@ -45,12 +45,12 @@ const adminController = {
             } else {
                 return res
                     .status(400)
-                    .json({ message: "Atleast one value is empty." });
+                    .json({ message: "Atleast one value is empty" });
             }
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error("Error creating admin:", error);
             return res.status(500).json({
-                message: "Internal server error while creating admin.",
+                message: "Internal server error while creating admin",
             });
         }
     },
@@ -62,7 +62,7 @@ const adminController = {
             const admin = await Admin.findByPk(id);
 
             if (!admin) {
-                return res.status(404).json({ message: "Admin not found." });
+                return res.status(404).json({ message: "Admin not found" });
             }
 
             if (firstname) admin.firstname = firstname;
@@ -76,10 +76,10 @@ const adminController = {
             await admin.save();
 
             return res.send("Admin modified successfully!");
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error("Error updating admin:", error);
             return res.status(500).json({
-                message: "Internal server error while updating admin.",
+                message: "Internal server error while updating admin",
             });
         }
     },
@@ -90,22 +90,22 @@ const adminController = {
 
             if (id === 1) {
                 return res.status(403).json({
-                    message: "The root administrator cannot be deleted.",
+                    message: "The root administrator cannot be deleted",
                 });
             }
             if (!admin) {
-                return res.status(404).json({ message: "Admin not found." });
+                return res.status(404).json({ message: "Admin not found" });
             }
 
             await admin.destroy();
 
             return res
                 .status(200)
-                .json({ message: "Admin deleted successfully." });
-        } catch (err) {
-            console.error(err);
+                .json({ message: "Admin deleted successfully" });
+        } catch (error) {
+            console.error("Error deleting admin:", error);
             return res.status(500).json({
-                message: "Internal server error while deleting admin.",
+                message: "Internal server error while deleting admin",
             });
         }
     },
