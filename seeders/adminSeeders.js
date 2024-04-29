@@ -34,7 +34,7 @@ async function adminSeeder() {
     }
     await Admin.bulkCreate(admins);
 
-    console.log("The admin seeder ran!");
+    console.log("The admin seeder was ran!");
 }
 
 module.exports = adminSeeder;

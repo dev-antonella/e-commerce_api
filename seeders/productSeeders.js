@@ -22,7 +22,7 @@ async function productSeeder() {
         products.push(newProduct);
     }
     await Product.bulkCreate(products);
-    console.log("The product seeder ran!");
+    console.log("The products seeder was ran!");
 }
 
 module.exports = productSeeder;

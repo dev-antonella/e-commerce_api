@@ -4,6 +4,7 @@ const adminSeeder = require("./adminSeeders");
 const categorySeeder = require("./categorySeeders");
 const orderSeeder = require("./orderSeeders");
 const productSeeder = require("./productSeeders");
+const orderProductsSeeder = require("./orderProductsSeeders");
 
 runSeeders();
 
@@ -13,5 +14,6 @@ async function runSeeders() {
     await categorySeeder();
     await orderSeeder();
     await productSeeder();
-    console.log("The seeders ran");
+    await orderProductsSeeder();
+    console.log("The seeders was ran!");
 }
